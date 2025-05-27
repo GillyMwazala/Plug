@@ -965,8 +965,10 @@ if chart_type == "Candlestick":
         low=df["Low"],
         close=df["Close"],
         name="Price",
-        increasing_line_color='#26a69a',
-        decreasing_line_color='#ef5350'
+        increasing_line_color='#00ff88',  # Brighter green
+        decreasing_line_color='#ff3333',  # Brighter red
+        increasing_fillcolor='#00ff88',   # Bright green fill
+        decreasing_fillcolor='#ff3333'    # Bright red fill
     ), row=1, col=1)
 elif chart_type == "OHLC":
     fig.add_trace(go.Ohlc(
@@ -976,40 +978,40 @@ elif chart_type == "OHLC":
         low=df["Low"],
         close=df["Close"],
         name="Price",
-        increasing_line_color='#26a69a',
-        decreasing_line_color='#ef5350'
+        increasing_line_color='#00ff88',  # Brighter green
+        decreasing_line_color='#ff3333'   # Brighter red
     ), row=1, col=1)
 else:  # Line chart
     fig.add_trace(go.Scatter(
         x=df_reset["Datetime"],
         y=df["Close"],
         name="Price",
-        line=dict(color='#2962ff', width=2)
+        line=dict(color='#00ffff', width=2)  # Bright cyan
     ), row=1, col=1)
 
-# Add moving averages for trend indication
+# Add moving averages with more visible colors
 fig.add_trace(go.Scatter(
     x=df_reset["Datetime"],
     y=df["SMA_9"],
-    line=dict(color="#29b6f6", width=1.5),
+    line=dict(color="#00ffff", width=2),  # Bright cyan
     name="SMA 9"
 ), row=1, col=1)
 
 fig.add_trace(go.Scatter(
     x=df_reset["Datetime"],
     y=df["SMA_20"],
-    line=dict(color="#ffeb3b", width=1.5),
+    line=dict(color="#ffff00", width=2),  # Bright yellow
     name="SMA 20"
 ), row=1, col=1)
 
 fig.add_trace(go.Scatter(
     x=df_reset["Datetime"],
     y=df["SMA_50"],
-    line=dict(color="#f06292", width=1.5),
+    line=dict(color="#ff00ff", width=2),  # Bright magenta
     name="SMA 50"
 ), row=1, col=1)
 
-# Add buy signals with improved visibility
+# Add buy signals with enhanced visibility
 if buy_signals:
     buy_x = []
     buy_y = []
@@ -1030,44 +1032,44 @@ if buy_signals:
             y=buy_y,
             mode="markers+text",
             marker=dict(
-                color="#00e676",
-                size=16,
+                color="#00ff88",  # Bright green
+                size=20,          # Larger size
                 symbol="triangle-up",
-                line=dict(width=2, color="#ffffff"),
+                line=dict(width=3, color="#ffffff"),
                 gradient=dict(
                     type="radial",
-                    color="#00e676"
+                    color="#00ff88"
                 )
             ),
             text=["BUY"] * len(buy_x),
             textposition="bottom center",
             textfont=dict(
                 color="#ffffff",
-                size=12,
+                size=14,          # Larger text
                 family="Arial Black"
             ),
             name="Buy Signal",
             hovertemplate="BUY Signal<br>Price: $%{y:.2f}<br>Date: %{x}<extra></extra>"
         ), row=1, col=1)
         
-        # Add glowing effect
+        # Add enhanced glowing effect
         for i in range(len(buy_x)):
             fig.add_trace(go.Scatter(
                 x=[buy_x[i]],
                 y=[buy_y[i]],
                 mode="markers",
                 marker=dict(
-                    color="#00e676",
-                    size=30,
+                    color="#00ff88",
+                    size=40,      # Larger glow
                     symbol="triangle-up",
-                    opacity=0.3,
+                    opacity=0.4,
                     line=dict(width=0)
                 ),
                 showlegend=False,
                 hoverinfo="skip"
             ), row=1, col=1)
 
-# Add sell signals with improved visibility
+# Add sell signals with enhanced visibility
 if sell_signals:
     sell_x = []
     sell_y = []
@@ -1088,44 +1090,44 @@ if sell_signals:
             y=sell_y,
             mode="markers+text",
             marker=dict(
-                color="#ff1744",
-                size=16,
+                color="#ff3333",  # Bright red
+                size=20,          # Larger size
                 symbol="triangle-down",
-                line=dict(width=2, color="#ffffff"),
+                line=dict(width=3, color="#ffffff"),
                 gradient=dict(
                     type="radial",
-                    color="#ff1744"
+                    color="#ff3333"
                 )
             ),
             text=["SELL"] * len(sell_x),
             textposition="top center",
             textfont=dict(
                 color="#ffffff",
-                size=12,
+                size=14,          # Larger text
                 family="Arial Black"
             ),
             name="Sell Signal",
             hovertemplate="SELL Signal<br>Price: $%{y:.2f}<br>Date: %{x}<extra></extra>"
         ), row=1, col=1)
         
-        # Add glowing effect
+        # Add enhanced glowing effect
         for i in range(len(sell_x)):
             fig.add_trace(go.Scatter(
                 x=[sell_x[i]],
                 y=[sell_y[i]],
                 mode="markers",
                 marker=dict(
-                    color="#ff1744",
-                    size=30,
+                    color="#ff3333",
+                    size=40,      # Larger glow
                     symbol="triangle-down",
-                    opacity=0.3,
+                    opacity=0.4,
                     line=dict(width=0)
                 ),
                 showlegend=False,
                 hoverinfo="skip"
             ), row=1, col=1)
 
-# Add support levels with improved visibility and gradients
+# Add support levels with enhanced visibility
 for level in supports:
     # Add the main support line
     fig.add_shape(
@@ -1135,26 +1137,26 @@ for level in supports:
         y0=level,
         y1=level,
         line=dict(
-            color="#26a69a",
+            color="#00ff88",  # Bright green
             width=2,
-            dash="dot"
+            dash="dash"
         ),
         row=1, col=1
     )
     
-    # Add gradient effect
+    # Add enhanced gradient effect
     fig.add_shape(
         type="rect",
         x0=df_reset["Datetime"].iloc[0],
         x1=df_reset["Datetime"].iloc[-1],
-        y0=level - (level * 0.001),  # Small offset for gradient
-        y1=level + (level * 0.001),
-        fillcolor="rgba(38, 166, 154, 0.1)",
+        y0=level - (level * 0.002),  # Larger gradient
+        y1=level + (level * 0.002),
+        fillcolor="rgba(0, 255, 136, 0.2)",  # Brighter green with transparency
         line=dict(width=0),
         row=1, col=1
     )
 
-# Add resistance levels with improved visibility and gradients
+# Add resistance levels with enhanced visibility
 for level in resistances:
     # Add the main resistance line
     fig.add_shape(
@@ -1164,36 +1166,35 @@ for level in resistances:
         y0=level,
         y1=level,
         line=dict(
-            color="#ef5350",
+            color="#ff3333",  # Bright red
             width=2,
-            dash="dot"
+            dash="dash"
         ),
         row=1, col=1
     )
     
-    # Add gradient effect
+    # Add enhanced gradient effect
     fig.add_shape(
         type="rect",
         x0=df_reset["Datetime"].iloc[0],
         x1=df_reset["Datetime"].iloc[-1],
-        y0=level - (level * 0.001),  # Small offset for gradient
-        y1=level + (level * 0.001),
-        fillcolor="rgba(239, 83, 80, 0.1)",
+        y0=level - (level * 0.002),  # Larger gradient
+        y1=level + (level * 0.002),
+        fillcolor="rgba(255, 51, 51, 0.2)",  # Brighter red with transparency
         line=dict(width=0),
         row=1, col=1
     )
 
-# Add fair value gaps
+# Add fair value gaps with enhanced visibility
 for fvg in fvgs:
-    # Use rectangle shape for FVGs
-    color = "rgba(38, 166, 154, 0.3)" if fvg['type'] == 'bullish' else "rgba(239, 83, 80, 0.3)"
+    # Use rectangle shape for FVGs with brighter colors
+    color = "rgba(0, 255, 136, 0.4)" if fvg['type'] == 'bullish' else "rgba(255, 51, 51, 0.4)"  # More opacity
     
     # Find the x-position (index) of the FVG in the data
     try:
         if isinstance(fvg['datetime'], pd.Timestamp):
             x_idx = df_reset[df_reset['Datetime'] == fvg['datetime']].index[0]
         else:
-            # Handle case when datetime is already an index
             x_idx = fvg['datetime']
             
         # Calculate x positions
@@ -1207,30 +1208,26 @@ for fvg in fvgs:
                 x1=x1,
                 y0=fvg['bottom'],
                 y1=fvg['top'],
-                line=dict(width=0),
+                line=dict(width=1, color=color.replace("0.4", "1")),  # Add border
                 fillcolor=color,
                 row=1, col=1
             )
     except (IndexError, KeyError):
-        # Skip if we can't find the index
         continue
 
-# Add volume chart if enabled
+# Add volume chart with enhanced colors
 if show_volume:
-    # Create color array for volume bars based on price direction
     colors = []
     for i in range(len(df)):
         try:
-            # Extract scalar values to avoid Series comparison issues
             close_val = df['Close'].iloc[i].item() if hasattr(df['Close'].iloc[i], 'item') else df['Close'].iloc[i]
             open_val = df['Open'].iloc[i].item() if hasattr(df['Open'].iloc[i], 'item') else df['Open'].iloc[i]
             
             if close_val < open_val:
-                colors.append('#ef5350')  # Red for bearish candles
+                colors.append('#ff3333')  # Bright red
             else:
-                colors.append('#26a69a')  # Green for bullish candles
+                colors.append('#00ff88')  # Bright green
         except:
-            # Default to neutral color if there's an issue
             colors.append('#808080')
     
     fig.add_trace(go.Bar(
@@ -1238,10 +1235,10 @@ if show_volume:
         y=df["Volume"],
         name="Volume",
         marker_color=colors,
-        opacity=0.5
+        opacity=0.7  # More opacity
     ), row=2, col=1)
 
-# Update chart layout with improved visibility and colors
+# Update chart layout with enhanced visibility
 fig.update_layout(
     title=dict(
         text=f"{symbol} - {timeframe} Chart",
@@ -1261,7 +1258,7 @@ fig.update_layout(
         )
     ),
     xaxis_rangeslider_visible=False,
-    height=700,  # Slightly taller chart for better visibility
+    height=800,  # Taller chart
     template="plotly_dark",
     legend=dict(
         orientation="h",
@@ -1274,8 +1271,8 @@ fig.update_layout(
             color="#ffffff",
             family="Arial"
         ),
-        bgcolor="rgba(42, 46, 57, 0.8)",
-        bordercolor="rgba(255, 255, 255, 0.3)",
+        bgcolor="rgba(0, 0, 0, 0.8)",  # Darker background
+        bordercolor="rgba(255, 255, 255, 0.5)",  # Brighter border
         borderwidth=1
     ),
     margin=dict(l=10, r=10, t=50, b=10),
@@ -1284,19 +1281,19 @@ fig.update_layout(
         size=14,
         color="#ffffff"
     ),
-    paper_bgcolor="#131722",
-    plot_bgcolor="#131722",
+    paper_bgcolor="#000000",  # Black background
+    plot_bgcolor="#000000",   # Black background
     hovermode="x unified"
 )
 
-# Make chart elements and grid lines more visible
+# Make grid lines more visible
 fig.update_xaxes(
     showgrid=True,
-    gridwidth=0.7,
-    gridcolor="#2a2e39",  # Brighter grid color
+    gridwidth=1,
+    gridcolor="rgba(255, 255, 255, 0.1)",  # Brighter grid
     showline=True,
-    linewidth=1.5,
-    linecolor="#ffffff",  # White axis lines
+    linewidth=2,
+    linecolor="#ffffff",
     zeroline=False,
     title_font=dict(size=14, color="#ffffff"),
     tickfont=dict(size=12, color="#ffffff")
@@ -1304,11 +1301,11 @@ fig.update_xaxes(
 
 fig.update_yaxes(
     showgrid=True,
-    gridwidth=0.7,
-    gridcolor="#2a2e39",  # Brighter grid color
+    gridwidth=1,
+    gridcolor="rgba(255, 255, 255, 0.1)",  # Brighter grid
     showline=True,
-    linewidth=1.5,
-    linecolor="#ffffff",  # White axis lines
+    linewidth=2,
+    linecolor="#ffffff",
     zeroline=False,
     title_font=dict(size=14, color="#ffffff"),
     tickfont=dict(size=12, color="#ffffff")
