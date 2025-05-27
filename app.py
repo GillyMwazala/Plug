@@ -22,35 +22,40 @@ st.markdown("""
 <style>
     /* General styling */
     .main {
-        background-color: #131722;
-        color: #ffffff;
+        background-color: #000000 !important;
+        color: #ffffff !important;
         font-family: 'Inter', sans-serif;
+    }
+    
+    /* Override Streamlit's default background */
+    .stApp {
+        background-color: #000000 !important;
     }
     
     /* Headers styling for better sectioning */
     h1, h2, h3 {
-        color: #f8f9fa;
+        color: #ffffff !important;
         font-weight: 600;
         margin-bottom: 1rem;
         padding-bottom: 0.5rem;
-        border-bottom: 2px solid #2a2e39;
-        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        border-bottom: 2px solid #333333;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }
     
     h1 {
-        color: #29b6f6;
+        color: #ffffff !important;
         font-size: 2.4rem;
         letter-spacing: -0.5px;
     }
     
     h2 {
-        color: #ffeb3b;
+        color: #ffffff !important;
         font-size: 2rem;
         letter-spacing: -0.3px;
     }
     
     h3 {
-        color: #f06292;
+        color: #ffffff !important;
         font-size: 1.6rem;
         letter-spacing: -0.2px;
     }
@@ -58,13 +63,13 @@ st.markdown("""
     /* Button styling for better visibility */
     .stButton>button {
         background: linear-gradient(135deg, #2962ff 0%, #1e40af 100%);
-        color: white;
+        color: white !important;
         font-weight: 600;
         border: none;
         padding: 0.6rem 1.2rem;
         border-radius: 8px;
         transition: all 0.3s ease;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 6px rgba(0,0,0,0.3);
     }
     
     .stButton>button:hover {
@@ -75,112 +80,32 @@ st.markdown("""
     
     /* Metrics styling for dashboard numbers */
     .stMetric {
-        background: linear-gradient(145deg, #1e222d 0%, #252836 100%);
+        background: linear-gradient(145deg, #111111 0%, #222222 100%);
         padding: 1.2rem;
         border-radius: 12px;
         border-left: 4px solid #2962ff;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
         transition: transform 0.3s ease;
     }
     
     .stMetric:hover {
         transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.4);
     }
     
-    /* Indicator cards for trading signals */
-    .signal-card {
-        background: linear-gradient(145deg, #1e222d 0%, #252836 100%);
-        border-radius: 12px;
-        padding: 1rem;
-        margin: 0.5rem 0;
-        border-left: 4px solid;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        transition: all 0.3s ease;
+    /* Sidebar styling */
+    [data-testid="stSidebar"] {
+        background-color: #000000 !important;
+        border-right: 1px solid #333333;
     }
     
-    .signal-card.buy {
-        border-color: #00e676;
+    .sidebar .sidebar-content {
+        background-color: #000000 !important;
     }
     
-    .signal-card.sell {
-        border-color: #ff1744;
-    }
-    
-    .signal-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-    }
-    
-    /* Support/Resistance levels styling */
-    .price-level {
-        background: linear-gradient(145deg, #1c2030 0%, #252836 100%);
-        padding: 1rem;
-        margin: 0.5rem 0;
-        border-radius: 8px;
-        border-left: 4px solid;
-        transition: all 0.3s ease;
-    }
-    
-    .price-level.support {
-        border-color: #26a69a;
-    }
-    
-    .price-level.resistance {
-        border-color: #ef5350;
-    }
-    
-    .price-level:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-    
-    /* Fair Value Gap styling */
-    .fvg-card {
-        background: linear-gradient(145deg, #1e222d 0%, #252836 100%);
-        padding: 1.2rem;
-        margin: 0.8rem 0;
-        border-radius: 12px;
-        border-left: 4px solid;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        transition: all 0.3s ease;
-    }
-    
-    .fvg-card.bullish {
-        border-color: #26a69a;
-    }
-    
-    .fvg-card.bearish {
-        border-color: #ef5350;
-    }
-    
-    .fvg-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-    }
-    
-    /* Analysis section styling */
-    .analysis-container {
-        background: linear-gradient(145deg, #1e222d 0%, #252836 100%);
-        padding: 1.5rem;
-        border-radius: 12px;
-        margin: 1rem 0;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-    
-    .analysis-header {
-        color: #29b6f6;
-        font-size: 1.4rem;
-        font-weight: 600;
-        margin-bottom: 1rem;
-        padding-bottom: 0.5rem;
-        border-bottom: 2px solid #2a2e39;
-    }
-    
-    /* Ensure all text elements are white and clear */
-    span, p, div, h1, h2, h3, h4, h5, h6, li, a {
+    /* Ensure all text elements are white */
+    p, span, div, label, text {
         color: #ffffff !important;
-        text-shadow: 0 1px 2px rgba(0,0,0,0.2);
     }
     
     /* Enhanced input styling */
@@ -188,11 +113,10 @@ st.markdown("""
     .stTextArea textarea, 
     .stNumberInput input {
         color: #ffffff !important;
-        background: linear-gradient(145deg, #1c2030 0%, #252836 100%) !important;
-        border: 1px solid #2a2e39 !important;
+        background: #111111 !important;
+        border: 1px solid #333333 !important;
         border-radius: 8px !important;
         padding: 0.8rem !important;
-        transition: all 0.3s ease;
     }
     
     .stTextInput input:focus, 
@@ -204,44 +128,88 @@ st.markdown("""
     
     /* Enhanced selectbox styling */
     .stSelectbox div[data-baseweb="select"] > div {
-        background: linear-gradient(145deg, #1c2030 0%, #252836 100%) !important;
-        border: 1px solid #2a2e39 !important;
-        border-radius: 8px !important;
-        transition: all 0.3s ease;
-    }
-    
-    .stSelectbox div[data-baseweb="select"] > div:hover {
-        border-color: #2962ff !important;
+        background-color: #111111 !important;
+        color: #ffffff !important;
+        border: 1px solid #333333 !important;
     }
     
     /* Dropdown menu items */
     div[data-baseweb="popover"] ul[role="listbox"] li {
-        background: linear-gradient(145deg, #1c2030 0%, #252836 100%) !important;
-        transition: all 0.2s ease;
+        background-color: #111111 !important;
+        color: #ffffff !important;
     }
     
     div[data-baseweb="popover"] ul[role="listbox"] li:hover {
-        background: linear-gradient(135deg, #2962ff 0%, #1e40af 100%) !important;
-        transform: translateX(4px);
+        background-color: #2962ff !important;
     }
     
-    /* Warning/Success banners with gradients */
-    .warning-banner {
-        background: linear-gradient(145deg, rgba(255, 87, 34, 0.1) 0%, rgba(255, 87, 34, 0.2) 100%);
-        border-left: 4px solid #ff5722;
-        padding: 1rem 1.2rem;
-        border-radius: 0 8px 8px 0;
-        margin: 1rem 0;
-        box-shadow: 0 2px 4px rgba(255, 87, 34, 0.1);
+    /* Radio buttons and checkboxes */
+    .stRadio label, .stCheckbox label {
+        color: #ffffff !important;
     }
     
-    .success-banner {
-        background: linear-gradient(145deg, rgba(0, 200, 83, 0.1) 0%, rgba(0, 200, 83, 0.2) 100%);
-        border-left: 4px solid #00c853;
-        padding: 1rem 1.2rem;
-        border-radius: 0 8px 8px 0;
+    /* Info/Warning/Error/Success boxes */
+    .stAlert {
+        background-color: #111111 !important;
+        color: #ffffff !important;
+    }
+    
+    /* Metric value color */
+    [data-testid="stMetricValue"] {
+        color: #ffffff !important;
+    }
+    
+    /* Metric label color */
+    [data-testid="stMetricLabel"] {
+        color: #ffffff !important;
+    }
+    
+    /* DataFrame styling */
+    .dataframe {
+        color: #ffffff !important;
+        background-color: #111111 !important;
+    }
+    
+    .dataframe th {
+        background-color: #222222 !important;
+        color: #ffffff !important;
+    }
+    
+    .dataframe td {
+        color: #ffffff !important;
+    }
+    
+    /* Plotly chart background */
+    .js-plotly-plot .plotly .main-svg {
+        background-color: #000000 !important;
+    }
+    
+    /* Ensure markdown text is white */
+    .stMarkdown {
+        color: #ffffff !important;
+    }
+    
+    /* Caption styling */
+    .caption {
+        color: #999999 !important;
+    }
+    
+    /* Analysis container */
+    .analysis-container {
+        background-color: #111111 !important;
+        color: #ffffff !important;
+        padding: 1.5rem;
+        border-radius: 12px;
         margin: 1rem 0;
-        box-shadow: 0 2px 4px rgba(0, 200, 83, 0.1);
+        border: 1px solid #333333;
+    }
+    
+    /* Code blocks */
+    code {
+        background-color: #111111 !important;
+        color: #00ff88 !important;
+        padding: 0.2em 0.4em;
+        border-radius: 4px;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -1271,8 +1239,8 @@ fig.update_layout(
             color="#ffffff",
             family="Arial"
         ),
-        bgcolor="rgba(0, 0, 0, 0.8)",  # Darker background
-        bordercolor="rgba(255, 255, 255, 0.5)",  # Brighter border
+        bgcolor="rgba(0, 0, 0, 0.95)",  # Almost pure black background
+        bordercolor="rgba(255, 255, 255, 0.25)",  # Subtle white border
         borderwidth=1
     ),
     margin=dict(l=10, r=10, t=50, b=10),
@@ -1281,8 +1249,8 @@ fig.update_layout(
         size=14,
         color="#ffffff"
     ),
-    paper_bgcolor="#000000",  # Black background
-    plot_bgcolor="#000000",   # Black background
+    paper_bgcolor="black",     # Pure black background
+    plot_bgcolor="black",      # Pure black background
     hovermode="x unified"
 )
 
@@ -1290,10 +1258,10 @@ fig.update_layout(
 fig.update_xaxes(
     showgrid=True,
     gridwidth=1,
-    gridcolor="rgba(255, 255, 255, 0.1)",  # Brighter grid
+    gridcolor="rgba(255, 255, 255, 0.05)",  # Very subtle white grid
     showline=True,
-    linewidth=2,
-    linecolor="#ffffff",
+    linewidth=1,
+    linecolor="rgba(255, 255, 255, 0.2)",   # Subtle white lines
     zeroline=False,
     title_font=dict(size=14, color="#ffffff"),
     tickfont=dict(size=12, color="#ffffff")
@@ -1302,10 +1270,10 @@ fig.update_xaxes(
 fig.update_yaxes(
     showgrid=True,
     gridwidth=1,
-    gridcolor="rgba(255, 255, 255, 0.1)",  # Brighter grid
+    gridcolor="rgba(255, 255, 255, 0.05)",  # Very subtle white grid
     showline=True,
-    linewidth=2,
-    linecolor="#ffffff",
+    linewidth=1,
+    linecolor="rgba(255, 255, 255, 0.2)",   # Subtle white lines
     zeroline=False,
     title_font=dict(size=14, color="#ffffff"),
     tickfont=dict(size=12, color="#ffffff")
@@ -1390,9 +1358,9 @@ if run_analysis:
         analysis = get_ai_analysis(df, analysis_type, symbol, timeframe)
         
     st.markdown(f"""
-    <div style="background-color:#2a2e39; padding:20px; border-radius:5px; margin-top:10px;">
-        <h3 style="color:#d1d4dc;">AI Market Analysis</h3>
-        <div style="color:#d1d4dc; white-space: pre-line;">{analysis}</div>
+    <div style="background-color:#000000; padding:20px; border-radius:5px; margin-top:10px; border:1px solid #333333;">
+        <h3 style="color:#ffffff;">AI Market Analysis</h3>
+        <div style="color:#ffffff; white-space: pre-line;">{analysis}</div>
     </div>
     """, unsafe_allow_html=True)
 else:
@@ -1400,7 +1368,7 @@ else:
 
 # Support & Resistance Levels
 st.markdown("""
-<h2 style="color:#ffffff; font-size:24px; font-weight:bold; margin-top:30px; margin-bottom:15px; text-align:center; background-color:#2a2e39; padding:15px; border-radius:5px;">
+<h2 style="color:#ffffff; font-size:24px; font-weight:bold; margin-top:30px; margin-bottom:15px; text-align:center; background-color:#000000; padding:15px; border-radius:5px; border:1px solid #333333;">
     🎯 Key Price Levels
 </h2>
 """, unsafe_allow_html=True)
@@ -1420,90 +1388,75 @@ with col1:
             
         # Calculate distance safely
         try:
-            # Get the current price from our earlier calculation, or compute it again if needed
             current_price_val = 0
             try:
-                # Try to access the current price we calculated earlier
                 current_price_val = current_price
             except NameError:
-                # If not available, calculate it here
                 if len(df) > 0:
                     curr_price = df["Close"].iloc[-1]
                     current_price_val = curr_price.item() if hasattr(curr_price, 'item') else float(curr_price)
                 else:
-                    current_price_val = 1  # Fallback
+                    current_price_val = 1
             
-            # Now calculate the distance
             distance = ((level_value / current_price_val) - 1) * 100
             distance_str = f"{distance:.2f}% from current"
         except (TypeError, ValueError, ZeroDivisionError, NameError):
             distance_str = "N/A"
             
-        # Display with proper formatting
         st.markdown(
-            f"<div style='background:#1c2030; padding:10px; margin:5px 0; border-radius:5px; border-left:4px solid #26a69a;'>${level_value:.2f} <span style='color:#9ca3af; float:right;'>({distance_str})</span></div>", 
+            f"<div style='background:#000000; padding:10px; margin:5px 0; border-radius:5px; border:1px solid #26a69a;'>${level_value:.2f} <span style='color:#999999; float:right;'>({distance_str})</span></div>", 
             unsafe_allow_html=True
         )
 
 with col2:
     st.markdown("<h4 style='color:#ef5350;'>Resistance Levels</h4>", unsafe_allow_html=True)
     
-    # Process each resistance level safely
     for i, level in enumerate(resistances[:5]):
-        # Convert numpy arrays to Python scalars if needed
         if hasattr(level, 'item'):
             level_value = level.item()
         else:
             level_value = float(level)
             
-        # Calculate distance safely
         try:
-            # Get the current price from our earlier calculation, or compute it again if needed
             current_price_val = 0
             try:
-                # Try to access the current price we calculated earlier
                 current_price_val = current_price
             except NameError:
-                # If not available, calculate it here
                 if len(df) > 0:
                     curr_price = df["Close"].iloc[-1]
                     current_price_val = curr_price.item() if hasattr(curr_price, 'item') else float(curr_price)
                 else:
-                    current_price_val = 1  # Fallback
+                    current_price_val = 1
             
-            # Now calculate the distance
             distance = ((level_value / current_price_val) - 1) * 100
             distance_str = f"{distance:.2f}% from current"
         except (TypeError, ValueError, ZeroDivisionError, NameError):
             distance_str = "N/A"
             
-        # Display with proper formatting
         st.markdown(
-            f"<div style='background:#1c2030; padding:10px; margin:5px 0; border-radius:5px; border-left:4px solid #ef5350;'>${level_value:.2f} <span style='color:#9ca3af; float:right;'>({distance_str})</span></div>", 
+            f"<div style='background:#000000; padding:10px; margin:5px 0; border-radius:5px; border:1px solid #ef5350;'>${level_value:.2f} <span style='color:#999999; float:right;'>({distance_str})</span></div>", 
             unsafe_allow_html=True
         )
 
 # Fair Value Gaps
 st.markdown("""
-<h2 style="color:#ffffff; font-size:24px; font-weight:bold; margin-top:30px; margin-bottom:15px; text-align:center; background-color:#2a2e39; padding:15px; border-radius:5px;">
+<h2 style="color:#ffffff; font-size:24px; font-weight:bold; margin-top:30px; margin-bottom:15px; text-align:center; background-color:#000000; padding:15px; border-radius:5px; border:1px solid #333333;">
     ⚡ Fair Value Gaps
 </h2>
 """, unsafe_allow_html=True)
 
 if fvgs:
-    for i, fvg in enumerate(fvgs[-5:]):  # Show the 5 most recent FVGs
+    for i, fvg in enumerate(fvgs[-5:]):
         try:
-            # Extract scalar values if needed
             fvg_type = fvg['type']
             color = "#26a69a" if fvg_type == "bullish" else "#ef5350"
             
-            # Convert values to scalar if they're numpy arrays
             bottom = fvg['bottom'].item() if hasattr(fvg['bottom'], 'item') else float(fvg['bottom'])
             top = fvg['top'].item() if hasattr(fvg['top'], 'item') else float(fvg['top'])
             mid = fvg['mid'].item() if hasattr(fvg['mid'], 'item') else float(fvg['mid'])
             
             st.markdown(f"""
-            <div style='background:#2a2e39; padding:15px; margin:10px 0; border-radius:5px; border-left:4px solid {color};'>
+            <div style='background:#000000; padding:15px; margin:10px 0; border-radius:5px; border:1px solid {color};'>
                 <div style='display:flex; justify-content:space-between;'>
                     <span style='color:{color}; font-weight:600; font-size:18px;'>{fvg_type.title()} Fair Value Gap</span>
                     <span style='color:#ffffff; font-weight:600;'>Range: ${bottom:.2f} - ${top:.2f}</span>
@@ -1512,7 +1465,6 @@ if fvgs:
             </div>
             """, unsafe_allow_html=True)
         except (KeyError, TypeError, ValueError) as e:
-            # Skip problematic FVGs
             continue
 else:
     st.info("No significant fair value gaps detected in the current timeframe.")
